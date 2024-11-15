@@ -12,10 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,9 +28,10 @@ import java.util.List;
         description = "kiwa_shop 中的 CRUD REST API 用于创建、更新、获取和删除卡详细信息"
 )
 @RestController
-@RequestMapping(path = "/shop/item", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/shop/item")
 @Validated
 @AllArgsConstructor
+@CrossOrigin("*")
 public class ShopItemController {
 
     IShopItemService iShopItemService;
@@ -51,8 +49,8 @@ public class ShopItemController {
             summary = "获取搜索商品信息",
             description = "获取搜索商品信息，用于展示在搜索页"
     )
-    @GetMapping("/search")
-    public Result<List<ShopItem>> getSearchShopItems(ShopItemMainDto search) {
+    @PostMapping("/search")
+    public Result<List<ShopItem>> getSearchShopItems(@RequestBody ShopItemMainDto search) {
         return Result.succeed(iShopItemService.selectSearchShopItems(search));
     }
 }

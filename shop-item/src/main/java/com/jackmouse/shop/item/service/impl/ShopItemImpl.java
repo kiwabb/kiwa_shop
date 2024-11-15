@@ -53,7 +53,6 @@ public class ShopItemImpl implements IShopItemService {
                                 .map(Double::parseDouble)
                                 .map(max -> SHOP_ITEM.PRICE.between(min, max)))
                         .orElse(null));
-
         return ShopItemMapper.selectListByQuery(queryWrapper);
     }
 }
